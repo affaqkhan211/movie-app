@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from "axios"
+import Movies from '../movies/Movies';
+import { Carousel } from 'react-responsive-carousel';
 const Home = () => {
 
     const [movies, setMovies] = useState([]);
@@ -22,26 +24,22 @@ const Home = () => {
     console.log(movies);
     return (
         <>
-            <div className="container text-white">
-                <h1 className="text-center mt-4 mb-4">
-                    Top Movies
-                </h1>
+        <Carousel
+    autoPlay={true}
+    transitionTime={2}
+    infiniteLoop={true}
+    showThumbs={false}
+    showStatus={false}
+    style={{ height: '400px' }}
+>
+    {
+        movies.map((movie) => (
+            <img src={`https://image.tmdb.org/t/p/original${movie.poster_path}`} alt="" />
+        ))
+    }
+</Carousel>
 
-
-                <div className="row">
-                    {
-                        movies.map((movie) => (
-                            <>
-                                <div className="col-lg-3 col-md-3 col-sm-12">
-
-                                    <img src={`https://image.tmdb.org/t/p/original${movie.poster_path}`} alt="" style={{ width: "350px", height: "350px" }} />
-                                    <h2>{movie.title}</h2>
-                                </div>
-                            </>
-                        ))
-                    }
-                </div>
-            </div>
+           <Movies/>
         </>
     )
 }
